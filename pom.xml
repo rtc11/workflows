@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>13</java.version>
+        <snyk-api-token>snyk-api-token</snyk-api-token>
     </properties>
 
     <dependencies>
@@ -53,6 +54,33 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <dependencyConvergence/>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>io.snyk</groupId>
+                <artifactId>snyk-maven-plugin</artifactId>
+                <version>1.2.5</version>
+                <configuration>
+                    <apiToken>${snyk-api-token}</apiToken>
+                    <failOnSeverity>false</failOnSeverity>
+                    <includeProvidedDependencies>false</includeProvidedDependencies>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -18,9 +18,6 @@ jobs:
           java-version: 13
       - name: build
         run: mvn clean package -T C1 -DskipTests
-      - name: Containerize and run
+      - name: Containerize
         run: |
           docker build -f .docker/Dockerfile -t no/tordly/fagkveld .
-          containerId=$(docker run -p 8080:8080 -t no/tordly/fagkveld)
-          curl -v http://localhost:8080/uuid/1
-          docker kill $containerId

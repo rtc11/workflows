@@ -10,9 +10,10 @@ jobs:
     name: Build and Containerize
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo fagkveld-feb-2020
+      - name: Checkout this repository
         uses: actions/checkout@master
-      - uses: actions/cache@v1
+      - name: Cache Maven Dependencies
+        uses: actions/cache@v1
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -41,5 +42,4 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 13
-      - name: snyk
-        run: mvn snyk:monitor -Dsnyk-api-token=${{ secrets.SNYK_TOKEN }}
+      - run: mvn snyk:monitor -Dsnyk-api-token=${{ secrets.SNYK_TOKEN }}

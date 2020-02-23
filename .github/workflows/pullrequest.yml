@@ -1,0 +1,24 @@
+name: Test PR
+
+on: pull_request
+
+jobs:
+  build:
+    name: Test application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@master
+      - name: Cache Maven Dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Setup Java 13/Maven
+        uses: actions/setup-java@v1
+        with:
+          java-version: 13
+      - name: Run tests
+        run: mvn test

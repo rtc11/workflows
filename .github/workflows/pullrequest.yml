@@ -1,4 +1,4 @@
-name: Test PR
+name: Pull Request
 
 on: pull_request
 
@@ -27,18 +27,3 @@ jobs:
           docker build -f .docker/api.Dockerfile -t api .
           docker build -f .docker/test.Dockerfile -t test .
           docker-compose -f .docker/docker-compose.yml up --exit-code-from test
-  snyk:
-    name: Snyk Monitor
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-      - uses: actions/setup-java@v1
-        with:
-          java-version: 13
-      - run: mvn snyk:monitor -Dsnyk-api-token=${{ secrets.SNYK_TOKEN }}

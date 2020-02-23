@@ -34,19 +34,3 @@ jobs:
         run: |
           docker login docker.pkg.github.com -u $GITHUB_REPOSITORY -p ${{ secrets.GITHUB_TOKEN }}
           docker push ${IMAGE}
-
-  snyk:
-    name: Snyk Monitor
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-      - uses: actions/setup-java@v1
-        with:
-          java-version: 13
-      - run: mvn snyk:monitor -Dsnyk-api-token=${{ secrets.SNYK_TOKEN }}

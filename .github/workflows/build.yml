@@ -30,7 +30,7 @@ jobs:
           docker build -f .docker/Dockerfile -t no/tordly/fagkveld .
       - name: Publish Container [Github Package Registry]
         run: |
-          docker login docker.pgk.github.com -u $GITHUB_REPOSITORY -p ${{ secrets.GITHUB_TOKEN }}
+          docker login docker.pkg.github.com -u $GITHUB_REPOSITORY -p ${{ secrets.GITHUB_TOKEN }}
           docker push no/tordly/fagkveld
 
   snyk:

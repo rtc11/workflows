@@ -24,7 +24,9 @@ jobs:
         run: mvn clean package -T C1
       - name: Containerize [Docker]
         run: |
-          docker build -f .docker/Dockerfile -t no/tordly/fagkveld .
+          docker build -f .docker/api.Dockerfile -t api .
+          docker build -f .docker/test.Dockerfile -t test .
+          docker-compose -f .docker/docker-compose.yml up --exit-code-from test
   snyk:
     name: Snyk Monitor
     runs-on: ubuntu-latest

@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Run Some Scheduled Thing
+    name: Run something
     runs-on: ubuntu-latest
     steps:
       - name: Do Something

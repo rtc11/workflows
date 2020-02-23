@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  prepare:
+  build:
     name: Build with j13
     runs-on: ubuntu-latest
     steps:
@@ -21,3 +21,18 @@ jobs:
       - name: Containerize
         run: |
           docker build -f .docker/Dockerfile -t no/tordly/fagkveld .
+  snyk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 13
+      - name: snyk
+        run: mvn snyk:monitor -Dsnyk-api-token=${{ secrets.SNYK_TOKEN }}

@@ -78,6 +78,7 @@
                 <version>1.2.5</version>
                 <configuration>
                     <apiToken>${snyk-api-token}</apiToken>
+                    <org>rtc11</org>
                     <failOnSeverity>false</failOnSeverity>
                     <includeProvidedDependencies>false</includeProvidedDependencies>
                 </configuration>

@@ -1,4 +1,4 @@
-name: Build
+name: Build And Find Security flaws
 
 on:
   push:
@@ -7,21 +7,28 @@ on:
 
 jobs:
   build:
-    name: Build with j13
+    name: Build and Containerize
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo fagkveld-feb-2020
         uses: actions/checkout@master
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Setup Java 13/Maven
         uses: actions/setup-java@v1
         with:
           java-version: 13
-      - name: build
+      - name: Build with JDK 13
         run: mvn clean package -T C1 -DskipTests
-      - name: Containerize
+      - name: Containerize with Docker
         run: |
           docker build -f .docker/Dockerfile -t no/tordly/fagkveld .
   snyk:
+    name: Snyk Monitor
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1

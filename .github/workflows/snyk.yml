@@ -1,13 +1,10 @@
-name: Pull Request
+name: Snyk - Security Check
 
 on:
-  on:
-    push:
-      branches:
-        - master
-    pull_request:
-      branches:
-        - *
+  push:
+    branches:
+      - master
+  pull_request:
 
 jobs:
   snyk:

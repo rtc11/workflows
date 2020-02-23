@@ -1,4 +1,4 @@
-name: Build And Find Security flaws
+name: Build And Publish Package
 
 on:
   push:

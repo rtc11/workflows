@@ -4,7 +4,7 @@ on: pull_request
 
 jobs:
   build:
-    name: Test application
+    name: Build and Containerize
     runs-on: ubuntu-latest
     steps:
       - name: Checkout this repository
@@ -20,5 +20,23 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 13
-      - name: Run tests
-        run: mvn test
+      - name: Build and Test [JDK 13]
+        run: mvn clean package -T C1
+      - name: Containerize [Docker]
+        run: |
+          docker build -f .docker/Dockerfile -t no/tordly/fagkveld .
+  snyk:
+    name: Snyk Monitor
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 13
+      - run: mvn snyk:monitor -Dsnyk-api-token=${{ secrets.SNYK_TOKEN }}

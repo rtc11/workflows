@@ -1,9 +1,6 @@
-name: Pull Request
+name: Snyk - Security Check
 
 on: [push, pull_request]
-  push:
-    branches:
-      - master
 
 jobs:
   snyk:

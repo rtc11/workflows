@@ -19,6 +19,6 @@ jobs:
       - name: build
         run: mvn clean compile
       - name: Containerize
-        run: docker build -t no/tordly/fagkveld .
+        run: docker build -f .docker/Dockerfile -t no/tordly/fagkveld .
       - name: Run
         run: docker run -p 8080:8080 -t no/tordly/fagkveld

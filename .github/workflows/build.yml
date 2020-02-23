@@ -20,4 +20,5 @@ jobs:
         run: mvn clean install
       - name: start
         run: java -jar /target/fagkveld-0.0.1-SNAPSHOT.jar
-      - test: curl -v http://localhost:8080/uuid/1
+      - name: test
+        run: curl -v http://localhost:8080/uuid/1

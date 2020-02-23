@@ -39,5 +39,5 @@ jobs:
           curl -H "Accept: application/vnd.github.everest-preview+json" \
               -H "Authorization: token {{ secrets.GITHUB_PAT }}“ \
               --request POST \
-              --data '{"event_type": “deploy”, "client_payload": {”Helloo there!!”}’ \
+              --data '{"event_type": “deploy”, "client_payload": {”Helloo there!!”}' \
               https://api.github.com/repos/rtc11/google-cloudstorage/dispatches

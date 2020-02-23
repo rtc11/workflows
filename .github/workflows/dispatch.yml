@@ -12,4 +12,4 @@ jobs:
       - name: Do Something
         run: echo Doing Something...
       - name: Do Something Based On Triggered Event Data
-       
+        run: 'echo "Event text: ${{ github.event.client_payload.text }}"'

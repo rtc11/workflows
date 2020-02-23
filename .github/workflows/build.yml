@@ -28,6 +28,11 @@ jobs:
       - name: Containerize with Docker
         run: |
           docker build -f .docker/Dockerfile -t no/tordly/fagkveld .
+      - name: Publish Container [Github Package Registry]
+        run: |
+          docker login docker.pgk.github.com -u $GITHUB_REPOSITORY -p $GITHUB_TOKEN
+          docker push no/tordly/fagkveld
+
   snyk:
     name: Snyk Monitor
     runs-on: ubuntu-latest

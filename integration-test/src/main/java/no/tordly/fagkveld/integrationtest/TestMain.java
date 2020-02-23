@@ -14,7 +14,7 @@ public class TestMain {
 
     @Bean
     RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.rootUri("http://host.docker.internal:8080")
+        return builder.rootUri("http://api:8080")
                 .defaultMessageConverters()
                 .build();
     }

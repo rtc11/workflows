@@ -4,6 +4,8 @@ services:
     image: api:latest
     ports:
       - 8080:8080
+    networks:
+      - webproxy
 
   test:
     image: test:latest
@@ -11,3 +13,9 @@ services:
       - api
     ports:
       - 8081:8080
+    networks:
+      - webproxy
+
+networks:
+  webproxy:
+    driver: bridge

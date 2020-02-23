@@ -19,34 +19,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-            <plugin>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <dependencyConvergence/>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>io.snyk</groupId>
-                <artifactId>snyk-maven-plugin</artifactId>
-                <version>${snyk.version}</version>
-                <configuration>
-                    <apiToken>${snyk-api-token}</apiToken>
-                    <org>rtc11</org>
-                    <failOnSeverity>false</failOnSeverity>
-                    <includeProvidedDependencies>false</includeProvidedDependencies>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 

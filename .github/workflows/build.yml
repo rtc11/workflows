@@ -36,7 +36,7 @@ jobs:
           docker push ${IMAGE}
       - name: Deploy Frontend to GCP
         env:
-          TOKEN: {{ secrets.GITHUB_PAT }}
+          TOKEN: ${{ secrets.GITHUB_PAT }}
         run: |
           curl -H "Accept: application/vnd.github.everest-preview+json" \
           -H "Authorization: token $TOKEN" \

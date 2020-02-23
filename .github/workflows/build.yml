@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+env:
+  IMAGE: docker.pkg.github.com/${{ github.repository }}/fagkveld:${{ github.sha }}
 
 jobs:
   build:
@@ -27,11 +29,11 @@ jobs:
         run: mvn clean package -T C1 -DskipTests
       - name: Containerize with Docker
         run: |
-          docker build -f .docker/Dockerfile -t no/tordly/fagkveld .
+          docker build -f .docker/Dockerfile -t ${IMAGE} .
       - name: Publish Container [Github Package Registry]
         run: |
           docker login docker.pkg.github.com -u $GITHUB_REPOSITORY -p ${{ secrets.GITHUB_TOKEN }}
-          docker push no/tordly/fagkveld
+          docker push ${IMAGE}
 
   snyk:
     name: Snyk Monitor

@@ -35,9 +35,11 @@ jobs:
           docker login docker.pkg.github.com -u $GITHUB_REPOSITORY -p ${{ secrets.GITHUB_TOKEN }}
           docker push ${IMAGE}
       - name: Deploy Frontend to GCP
+        env:
+          GITHUB_PAT: {{ secrets.GITHUB_PAT }}
         run: |
           curl -H "Accept: application/vnd.github.everest-preview+json" \
-          -H "Authorization: token {{ secrets.GITHUB_PAT }}" \
+          -H "Authorization: token $GITHUB_PAT" \
               --request POST \
               --data '{"event_type": "deploy", "client_payload": {"text": "Helloo there!!"}' \
               https://api.github.com/repos/rtc11/google-cloudstorage/dispatches

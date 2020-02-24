@@ -11,6 +11,7 @@ jobs:
   build:
     name: Build and Containerize
     runs-on: ubuntu-latest
+    timeout-minutes: 5 # default 360 min
     steps:
       - name: Checkout this repository
         uses: actions/checkout@master
@@ -35,6 +36,7 @@ jobs:
           docker login docker.pkg.github.com -u $GITHUB_REPOSITORY -p ${{ secrets.GITHUB_TOKEN }}
           docker push ${IMAGE}
       - name: Deploy Frontend to GCP
+        continue-on-error: true
         env:
           TOKEN: ${{ secrets.GITHUB_PAT }}
         run: |

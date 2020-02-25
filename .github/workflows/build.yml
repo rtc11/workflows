@@ -8,7 +8,7 @@ env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/fagkveld:${{ github.sha }}
 
 jobs:
-  build:
+  arndomBuildName:
     name: Build and Containerize
     runs-on: ubuntu-latest
     timeout-minutes: 5 # default 360 min

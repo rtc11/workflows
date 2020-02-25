@@ -12,4 +12,5 @@ public class Api {
     public String getRandom() {
         return UUID.randomUUID().toString();
     }
+    
 }
